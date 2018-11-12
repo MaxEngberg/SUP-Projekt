@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Inspark.Views"
+             xmlns:vm="clr-namespace:Inspark.Viewmodels;assembly=Inspark"
+             x:Class="Inspark.Views.MainPage"
+             xmlns:conv="clr-namespace:Inspark.Services;assembly=Inspark"
+             xmlns:ci="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions">
+
+    <!-- Creating a grid with five rows for the whole page. -->
+    <Grid ColumnSpacing="0" RowSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="56"/>
+            <RowDefinition Height="1"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="1"/>
+            <RowDefinition Height="56"/>
+        </Grid.RowDefinitions>
+
+        <!-- Creating five columns in the first row. -->
+        <Grid Grid.Row="0" ColumnSpacing="0" RowSpacing="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Specifies the value for each column in the first row. -->
+            <StackLayout Grid.Column="0" VerticalOptions="Center" Spacing="0">
+                <Image HeightRequest="30" Source="info.png"/>
+                <Label Text="Info" FontSize="10"
+                       HorizontalOptions="Center"/>
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="InfoIcon_Tapped"/>
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+
+            <StackLayout Grid.Column="1" VerticalOptions="Center" Spacing="0" IsVisible="{Binding IsIntro}">
+                <StackLayout.BindingContext>
+                    <vm:MainPageViewModel/>
+                </StackLayout.BindingContext>
+                <Image HeightRequest="30" Source="competition.png"/>
+                <Label Text="Tävling" FontSize="10"
+                       HorizontalOptions="Center"/>
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="CompetitionIcon_Tapped"/>
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+
+            <StackLayout Grid.Column="2" VerticalOptions="Center" Spacing="0">
+            </StackLayout>
+
+            <StackLayout Grid.Column="3" VerticalOptions="Center" Spacing="0" IsVisible="{Binding IsAdmin}">
+                <StackLayout.BindingContext>
+                    <vm:MainPageViewModel/>
+                </StackLayout.BindingContext>
+                <Image HeightRequest="30" Source="admin.png"/>
+                <Label Text="Admin" FontSize="10"
+                       HorizontalOptions="Center"/>
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="AdminIcon_Tapped"/>
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+
+            <StackLayout Grid.Column="4" VerticalOptions="Center" Spacing="0">
+                <StackLayout.BindingContext>
+                    <vm:MainPageViewModel/>
+                </StackLayout.BindingContext>
+                <StackLayout.Resources>
+                    <ResourceDictionary>
+                        <conv:ByteArrayToImageSourceConverter x:Key="bic"/>
+                    </ResourceDictionary>
+                </StackLayout.Resources>
+                <ci:CircleImage Source="{Binding ProfilePicture, Converter={StaticResource bic}}"
+                                Aspect="AspectFill"
+                                WidthRequest="30"
+                                HeightRequest="30"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"/>
+                <Label Text="{Binding FirstName}" FontSize="10"
+                       HorizontalOptions="Center"/>
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="ProfileIcon_Tapped"/>
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+        </Grid>
+
+        <!-- Specifies what the other rows will do/contain. Row 1 and 3 is both a "border row". 
+        Row 2 is a ContentView where all the content from any view will be put for display. -->
+        <BoxView Grid.Row="1" BackgroundColor="LightGray"/>
+        <ContentView Grid.Row="2" x:Name="Inspark"/>
+        <BoxView Grid.Row="3" BackgroundColor="LightGray"/>
+
+        <!-- Creating five columns in the last row. -->
+        <Grid Grid.Row="4" ColumnSpacing="0" RowSpacing="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Specifies the value for each column in the last row. -->
+            <StackLayout Grid.Column="0" VerticalOptions="Center" Spacing="0">
+                <Image HeightRequest="30" Source="home.png"/>
+                <Label Text="Hem" FontSize="10"
+                       HorizontalOptions="Center"/>
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="HomeIcon_Tapped"/>
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+
+            <StackLayout VerticalOptions="Center" Spacing="0" Grid.Column="1" IsVisible="{Binding IsIntro}">
+                <StackLayout.BindingContext>
+                    <vm:MainPageViewModel/>
+                </StackLayout.BindingContext>
+                <Image HeightRequest="30" Source="group.png"/>
+                <Label Text="Grupp" FontSize="10"
+                       HorizontalOptions="Center"/>
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="GroupIcon_Tapped"/>
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+
+            <StackLayout VerticalOptions="Center" Spacing="0" Grid.Column="2">
+                <Image HeightRequest="30" Source="event.png"/>
+                <Label Text="Event" FontSize="10"
+                       HorizontalOptions="Center"/>
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="EventIcon_Tapped"/>
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+
+            <StackLayout VerticalOptions="Center" Spacing="0" Grid.Column="3" IsVisible="{Binding IsIntro}">
+                <StackLayout.BindingContext>
+                    <vm:MainPageViewModel/>
+                </StackLayout.BindingContext>
+                <Image HeightRequest="30" Source="chat.png"/>
+                <Label Text="Chatt" FontSize="10"
+                       HorizontalOptions="Center"/>
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="ChatIcon_Tapped"/>
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+
+            <StackLayout VerticalOptions="Center" Spacing="0" Grid.Column="4">
+                <Image HeightRequest="30" Source="schedule.png"/>
+                <Label Text="Schema" FontSize="10"
+                       HorizontalOptions="Center"/>
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="ScheduleIcon_Tapped"/>
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+        </Grid>
+    </Grid>
+</ContentPage>

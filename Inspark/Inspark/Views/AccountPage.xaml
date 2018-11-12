@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Inspark.Views.AccountPage"
+             xmlns:viewModels="clr-namespace:Inspark.Viewmodels;assembly=Inspark">
+    <ContentPage.BindingContext>
+        <viewModels:ProfilePictureViewModel/>
+    </ContentPage.BindingContext>
+    <ContentView x:Name="InsparkAccount">
+        <ContentPage.Content>
+            <ScrollView>
+                <StackLayout Padding="20">
+                    <Label Text="Välj ett alternativ" FontSize="Medium" HorizontalOptions="Center"/>
+
+                    <StackLayout>
+                        <Button Text="Visa profilsidan" BackgroundColor="LightBlue" Clicked="ShowProfileButton_Clicked"/>
+                        <Button Text="Ändra användaruppgifter" BackgroundColor="LightBlue" Clicked="ChangeUserDetailsButton_Clicked"/>
+                        <Button Text="Ändra lösenord" BackgroundColor="LightBlue" Clicked="ChangePassword_Clicked"/>
+                    </StackLayout>
+
+                    <StackLayout>
+                        <Button Text="Logga ut" BackgroundColor="LightCoral" Clicked="LogOut_Clicked" Command="{Binding LogOutCommand}" VerticalOptions="End"/>
+                    </StackLayout>
+
+                </StackLayout>
+            </ScrollView>
+        </ContentPage.Content>
+    </ContentView>
+</ContentPage>

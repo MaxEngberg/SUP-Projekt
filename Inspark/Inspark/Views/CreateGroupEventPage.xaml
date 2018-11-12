@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:Inspark.Viewmodels;assembly=Inspark"
+             xmlns:system="clr-namespace:System;assembly=netstandard"
+             xmlns:iOSSpecific="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             xmlns:validation="clr-namespace:Inspark.Services;assembly=Inspark"
+             xmlns:custom="clr-namespace:Inspark.CustomControls;assembly=Inspark" 
+             xmlns:behaviors="clr-namespace:Behaviors;assembly=Behaviors"
+             x:Class="Inspark.Views.CreateGroupEventPage">
+    <ContentPage.Content>
+    </ContentPage.Content>
+    <ScrollView>
+        <StackLayout Padding="40">
+            <StackLayout.BindingContext>
+                <viewmodels:CreateGroupEventViewModel/>
+            </StackLayout.BindingContext>
+            <StackLayout>
+                <Entry Placeholder="Titel" Text="{Binding Title}">
+                    <Entry.Behaviors>
+                        <validation:EmptyFieldValidation/>
+                    </Entry.Behaviors>
+                </Entry>
+            </StackLayout>
+
+            <StackLayout>
+                <Entry Placeholder="Adress" Text="{Binding Location}">
+                    <Entry.Behaviors>
+                        <validation:EmptyFieldValidation/>
+                    </Entry.Behaviors>
+                </Entry>
+            </StackLayout>
+
+            <StackLayout>
+                <Entry Placeholder="Beskrivning" Text="{Binding Description}">
+                    <Entry.Behaviors>
+                        <validation:EmptyFieldValidation/>
+                    </Entry.Behaviors>
+                </Entry>
+            </StackLayout>
+            <StackLayout>
+                <Picker Margin="10,0,0,10" ItemsSource="{Binding Groups}" SelectedIndex="{Binding SelectedIndex}" ItemDisplayBinding="{Binding Name}" iOSSpecific:Picker.UpdateMode="WhenFinished">
+                    <Picker.Behaviors>
+                        <behaviors:EventHandlerBehavior EventName="SelectedIndexChanged">
+                            <behaviors:ActionCollection>
+                                <behaviors:InvokeCommandAction Command="{Binding SelectedProviderChanged}"/>
+                            </behaviors:ActionCollection>
+                        </behaviors:EventHandlerBehavior>
+                    </Picker.Behaviors>
+                </Picker>
+            </StackLayout>
+            <StackLayout>
+                <DatePicker Format="dd/MM/yyyy" Date="{Binding StartDate}" MinimumDate="{x:Static system:DateTime.Today}"/>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label Text="Start Time" Grid.Row="0" Grid.Column="0"/>
+                    <custom:CustomTimePicker24H Time="{Binding StartTime}" Format="HH:mm"/>
+                </Grid>
+            </StackLayout>
+            <Label Text="{Binding Message}"></Label>
+            <Button Text="Create GroupEvent" IsEnabled="{Binding IsButtonEnabled}" Command="{Binding CreateEventCommand}"></Button>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Inspark.Views.ChangeUserDetailsPage"
+             xmlns:vm="clr-namespace:Inspark.Viewmodels;assembly=Inspark"
+             xmlns:va="clr-namespace:Inspark.Services;assembly=Inspark"
+             xmlns:ci="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <va:BooleanNegationConverter x:Key="bnc"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+            <Grid.BindingContext>
+                <vm:EditUserViewModel/>
+            </Grid.BindingContext>
+            <ContentView IsVisible="{Binding IsLoading, Converter={StaticResource bnc}}" x:Name="ChangeUserDetailsContent">
+                <ScrollView>
+                    <StackLayout Padding="15">
+                        <StackLayout.Resources>
+                            <ResourceDictionary>
+                                <va:ByteArrayToImageSourceConverter x:Key="bic"/>
+                            </ResourceDictionary>
+                        </StackLayout.Resources>
+                        <Label Text="Ändra förnamn:"/>
+                        <Entry Text="{Binding FirstName}" Keyboard="Text" x:Name="FirstName"/>
+                        <Label Text="Ändra efternamn:"/>
+                        <Entry Text="{Binding LastName}" Keyboard="Text" x:Name="LastName"/>
+                        <Label Text="Ändra telefonnummer:"/>
+                        <Entry Text="{Binding PhoneNumber}" Keyboard="Numeric" x:Name="PhoneNumber"/>
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                            <Button Text="Byt profilbild:" Command="{Binding PickPhotoCommand}"/>
+                            <ci:CircleImage Source="{Binding Pic, Converter={StaticResource bic}}" BorderThickness="2" BorderColor="Black" HeightRequest="70" WidthRequest="70" Aspect="AspectFill"/>
+                            <Button Text="Ta bort bild" Command="{Binding RemovePicCommand}" IsVisible="{Binding IsVisible}"/>
+                        </StackLayout>
+                        <Label Text="Ange ditt lösenord för att bekräfta dina ändringar:"/>
+                        <Entry Placeholder="Lösenord" Text="{Binding CurrentPassword}" IsPassword="True"/>
+                        <Label Text="{Binding Message}" TextColor="Red"/>
+                        <Button Text="Bekräfta ändringar" Command="{Binding ConfirmCommand}" BackgroundColor="LightGreen" VerticalOptions="End"/>
+                        <Button Text="Avbryt" Clicked="Abort_Clicked" BackgroundColor="PaleVioletRed" VerticalOptions="End"/>
+                    </StackLayout>
+                </ScrollView>
+            </ContentView>
+            <ActivityIndicator IsVisible="{Binding IsLoading}" IsRunning="{Binding IsLoading}"
+            VerticalOptions="Center" HorizontalOptions="Center" Color="Blue" />
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

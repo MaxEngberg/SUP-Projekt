@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Inspark.Views.CreateNewsPostPage"
+             xmlns:vm="clr-namespace:Inspark.Viewmodels;assembly=Inspark">
+    <ContentPage.Content>
+        <ContentView x:Name="CreatePostContent">
+            <ScrollView>
+                <StackLayout Padding="20">
+                    <StackLayout.BindingContext>
+                        <vm:CreateNewsPostViewModel/>
+                    </StackLayout.BindingContext>
+                    <Label Text="Skriv ett inlägg:" FontSize="Large"/>
+                    <Label Text="Titel:"/>
+                    <Editor Text="{Binding PostTitle}" Keyboard="Text"/>
+                    <Label Text="Text:"/>
+                    <Editor Text="{Binding PostText}" HeightRequest="100" Keyboard="Text"/>
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                        <Button Text="Lägg till bild" Command="{Binding AddPicCommand}"/>
+                        <Image Source="{Binding ImagePath}" HeightRequest="75" WidthRequest="75"/>
+                        <Button Text="Ta bort bild" Command="{Binding RemovePicCommand}" IsVisible="{Binding IsVisible}"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                        <Label Text="Pinna inlägg"/>
+                        <Switch IsToggled="{Binding IsPinned}"/>
+                    </StackLayout>
+                    <Label Text="{Binding Message}" TextColor="Red"/>
+                    <Button Text="Posta inlägg" Command="{Binding PostCommand}" BackgroundColor="LightGreen"/>
+                    <Button Text="Avbryt" Clicked="Abort_Clicked" BackgroundColor="PaleVioletRed"/>
+                </StackLayout>
+            </ScrollView>
+        </ContentView>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:Inspark.Viewmodels;assembly=Inspark"
+             x:Class="Inspark.Views.DeleteEventPage">
+    <ContentPage.Content>
+        <StackLayout Padding="40">
+            <StackLayout.BindingContext>
+                <viewmodels:DeleteEventViewModel/>
+            </StackLayout.BindingContext>
+            <StackLayout>
+                <Label Text="Välj vilket event"/>
+                <Picker ItemsSource="{Binding Events}" SelectedIndex="{Binding SelectedIndex}" ItemDisplayBinding="{Binding Title}"/>
+            </StackLayout>
+            <StackLayout>
+                <Label Text="{Binding Message}"/>
+                <Button Text="Ta bort event" Command="{Binding DeleteEvent}"/>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:viewmodels="clr-namespace:Inspark.Viewmodels;assembly=Inspark" 
+             xmlns:iOSSpecific="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             xmlns:system="clr-namespace:System;assembly=netstandard" 
+             xmlns:custom="clr-namespace:Inspark.CustomControls;assembly=Inspark"
+             xmlns:behaviors="clr-namespace:Behaviors;assembly=Behaviors" x:Class="Inspark.Views.ChangeGroupEventPage">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Padding="40">
+                <StackLayout.BindingContext>
+                    <viewmodels:ChangeGroupEventViewModel />
+                </StackLayout.BindingContext>
+                <StackLayout>
+                    <Label Text="Välj vilket grupp event" />
+                    <Picker ItemsSource="{Binding GroupEvents}" SelectedItem="{Binding SelectedGroupEvent, Mode=TwoWay}" ItemDisplayBinding="{Binding Title}" iOSSpecific:Picker.UpdateMode="WhenFinished">
+                        <Picker.Behaviors>
+                            <behaviors:EventHandlerBehavior EventName="SelectedIndexChanged">
+                                <behaviors:ActionCollection>
+                                    <behaviors:InvokeCommandAction Command="{Binding SelectedProviderChanged}" />
+                                </behaviors:ActionCollection>
+                            </behaviors:EventHandlerBehavior>
+                        </Picker.Behaviors>
+                    </Picker>
+                </StackLayout>
+                <StackLayout>
+                    <Label Text="Title:" />
+                    <Entry Text="{Binding Title, Mode=TwoWay}" />
+                    <Label Text="Location:" />
+                    <Entry Text="{Binding Location, Mode=TwoWay}" />
+                    <Label Text="Datum:" />
+                    <DatePicker Format="dd/MM/yyyy" Date="{Binding StartDate}" MinimumDate="{x:Static system:DateTime.Today}" />
+                    <Label Text="Tid:" />
+                    <custom:CustomTimePicker24H Time="{Binding StartTime}" Format="HH:mm" />
+                    <Label Text="Description:" />
+                    <Entry Text="{Binding Description, Mode=TwoWay}" />
+                </StackLayout>
+                <StackLayout>
+                    <Label Text="{Binding Message}" />
+                    <Button Text="Ändra grupp event" Command="{Binding ChangeGroupEvent}" />
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

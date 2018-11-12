@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Inspark.Views.LoginInfoPage"
+             Title="Hjälp för inloggning">
+    <ContentPage.Content>
+        <StackLayout Padding="20">
+            <Label Text="Hur man loggar in osv visas här."/>
+            <Button Text="OK"
+                    Clicked="OkButton_Clicked"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

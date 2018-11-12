@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Inspark.Views.AdminPage"
+             xmlns:viewModel="clr-namespace:Inspark.Viewmodels;assembly=Inspark">
+    <ContentView x:Name="InsparkAdmin">
+        <ContentPage.Content>
+            <ScrollView>
+                <StackLayout Padding="20">
+                    <StackLayout.BindingContext>
+                        <viewModel:AdminViewModel/>
+                    </StackLayout.BindingContext>
+                    <StackLayout Orientation="Vertical" 
+                                 Spacing="0" 
+                                 Margin="10, 20, 10, 0">
+                        <SearchBar x:Name="UserSearchBar"
+                                   Text="{Binding Keyword}"
+                                   SearchCommand="{Binding SearchCommand}"
+                                   Placeholder="Bokstav + enter för att söka"
+                                   HeightRequest="40"/>
+                        <ListView x:Name="SuggestionsListView" 
+                                  ItemsSource="{Binding Suggestions}" 
+                                  IsVisible="{Binding IsVisible}"
+                                  ItemTapped="Handle_ItemTapped">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <TextCell Text="{Binding FirstName}" Detail="{Binding LastName}"/>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </StackLayout>
+                    <StackLayout>
+                        <Button Text="Skapa ett inlägg" BackgroundColor="LightBlue" Clicked="CreateNewsPostButton_Clicked"/>
+                        <Button Text="Skapa introduktionsgrupp" BackgroundColor="LightBlue" Clicked="CreateGroupButton_Clicked"/>
+                        <Button Text="Ändra introduktionsgrupp" BackgroundColor="LightBlue" Clicked="ChangeGroupButton_Clicked"/>
+                        <Button Text="Ta bort introduktionsgrupp" BackgroundColor="LightCoral" Clicked="DeleteGroupButton_Clicked"/>
+                        <Button Text="Lägg till användare till introduktionsgrupp" BackgroundColor="LightBlue" Clicked="AddUserToGroupButton_Clicked"/>
+                        <Button Text="Ta bort användare från introduktionsgrupp" BackgroundColor="LightCoral" Clicked="DeleteUserFromGroupButton_Clicked"/>
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
+        </ContentPage.Content>
+    </ContentView>
+</ContentPage>

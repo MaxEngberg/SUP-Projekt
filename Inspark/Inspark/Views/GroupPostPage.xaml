@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Inspark.Views.GroupPostPage"
+             xmlns:vm="clr-namespace:Inspark.Viewmodels;assembly=Inspark"
+             xmlns:conv="clr-namespace:Inspark.Services;assembly=Inspark"
+             xmlns:ci="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions">
+    <ContentPage.Content>
+        <ScrollView>
+            <ContentView x:Name="GroupPostView">
+                <StackLayout Padding="20" 
+                         VerticalOptions="FillAndExpand" 
+                         HorizontalOptions="FillAndExpand">
+                    <StackLayout.Resources>
+                        <ResourceDictionary>
+                            <conv:ByteArrayToImageSourceConverter x:Key="bic"/>
+                        </ResourceDictionary>
+                    </StackLayout.Resources>
+                    <Label Text="{Binding Title}"
+                   FontSize="Large"
+                    VerticalOptions="Start" 
+                    HorizontalOptions="Start"/>
+                    <Label Text="{Binding Text}"
+                    VerticalOptions="Start" 
+                    HorizontalOptions="StartAndExpand" />
+                    <Image Source="{Binding Picture, Converter={StaticResource bic}}"
+                    VerticalOptions="Start" 
+                    HorizontalOptions="Center"/>
+                    <StackLayout HorizontalOptions="End" VerticalOptions="End">
+                        <ci:CircleImage Source="{Binding SenderPic, Converter={StaticResource bic}}" 
+                                Aspect="AspectFill"
+                                BorderColor="Gray"
+                                BorderThickness="3"
+                                HeightRequest="60"
+                                WidthRequest="60"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"/>
+                        <Label Text="{Binding Author}"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center" />
+                        <Label Text="{Binding DisplayDate}"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center" />
+                        <Label Text="{Binding Views}"/>
+                    </StackLayout>
+                    <Button Text="Ändra inlägg" IsVisible="{Binding IsUserPost}" Clicked="EditPost_Clicked"/>
+                </StackLayout>
+            </ContentView>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

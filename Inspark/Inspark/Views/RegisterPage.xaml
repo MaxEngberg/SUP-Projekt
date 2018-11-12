@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="Inspark.RegisterPage"
+    xmlns:viewModels="clr-namespace:Inspark.Viewmodels;assembly=Inspark"
+    xmlns:validation="clr-namespace:Inspark.Services;assembly=Inspark"
+    xmlns:ci="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions">
+    <ContentPage.BindingContext>
+        <viewModels:RegisterViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <validation:BooleanNegationConverter x:Key="not" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+        <ScrollView IsVisible="{Binding IsLoading, Converter={StaticResource not}}">
+            <StackLayout Padding="40">
+                <Entry Placeholder="Förnamn" x:Name="FirstName" Text="{Binding FirstName}" Keyboard="Text">
+                    <Entry.Behaviors>
+                        <validation:TextOnlyBehavior x:Name="FirstNameBehavior"/>
+                    </Entry.Behaviors>
+                </Entry>
+                <Entry Placeholder="Efternamn" x:Name="LastName" Text="{Binding LastName}" Keyboard="Text">
+                    <Entry.Behaviors>
+                        <validation:TextOnlyBehavior x:Name="LastNameBehavior"/>
+                    </Entry.Behaviors>
+                </Entry>
+                <Entry Text="{Binding Email}" x:Name="Email" Placeholder="Email" Keyboard="Email">
+                    <Entry.Behaviors>
+                        <validation:EmailBehaviors/>
+                    </Entry.Behaviors>
+                </Entry>
+                <Entry x:Name="password" Placeholder="Lösenord" IsPassword="true"
+             Text="{Binding Password}">
+                    <Entry.Behaviors>
+                        <validation:PasswordBehavior x:Name="passwordValidator"/>
+                    </Entry.Behaviors>
+                </Entry>
+                <Entry x:Name="confirmPassword" Text="{Binding ConfirmPassword}" Placeholder="Bekräfta lösenord" IsPassword="true">
+                    <Entry.Behaviors>
+                        <validation:ConfirmPasswordBehaviour x:Name="confirmPasswordBehavior" CompareToEntry="{Binding Source={x:Reference password}}" />
+                    </Entry.Behaviors>
+                </Entry>
+                <Entry Placeholder="Telefonnummer" Text="{Binding PhoneNumber}" Keyboard="Numeric" x:Name="PhoneNumber">
+                    <Entry.Behaviors>
+                        <validation:NumberBehavior x:Name="NumberValidator"/>
+                    </Entry.Behaviors>
+                </Entry>
+                <Picker x:Name="Section" Title="Välj din institution" HorizontalOptions="FillAndExpand" 
+                        ItemsSource="{Binding SectionsList}" 
+                        ItemDisplayBinding="{Binding Name}"
+                        SelectedItem="{Binding Section}">
+                </Picker>
+                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                    <Button Text="Lägg till bild" Command="{Binding AddPicCommand}" IsVisible="{Binding IsAddPicVisible}"/>
+                    <ci:CircleImage Source="{Binding ImagePath}" Aspect="AspectFill" HeightRequest="60" WidthRequest="60"/>
+                    <Button Text="Ta bort bild" Command="{Binding RemovePicCommand}" IsVisible="{Binding IsRemovePicVisible}"/>
+                </StackLayout>
+                <Button x:Name="RegisterButton" Text="Registrera" Command="{Binding RegisterCommand}"/>
+                <ActivityIndicator Color="Blue" IsRunning="{Binding IsRunning}" IsVisible="{Binding IsRunning}"/>
+                <Label Text="{Binding Message}" TextColor="Red"/>
+            </StackLayout>
+        </ScrollView>
+        <ActivityIndicator IsVisible="{Binding IsLoading}" IsRunning="{Binding IsLoading}"
+            VerticalOptions="Center" HorizontalOptions="Center" Color="Blue" />
+    </Grid>
+</ContentPage>

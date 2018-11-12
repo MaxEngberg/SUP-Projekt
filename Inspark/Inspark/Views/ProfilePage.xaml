@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Inspark.Views.ProfilePage" xmlns:viewmodels="clr-namespace:Inspark.Viewmodels;assembly=Inspark">
+    <!-- Gets the value from the database from data bindings and displays the data in the correct label. -->
+    <ContentView x:Name="Profile">
+        <ContentPage.Content>
+            <ScrollView>
+                <StackLayout Padding="20, 40">
+                    <Image Source="picture.jpg" />
+                    <StackLayout HorizontalOptions="Center" Orientation="Horizontal">
+                        <Label Text="Förnamn:" />
+                        <Label Text="{Binding FirstName}" />
+                    </StackLayout>
+                    <StackLayout HorizontalOptions="Center" Orientation="Horizontal">
+                        <Label Text="Efternamn:" />
+                        <Label Text="{Binding LastName}" />
+                    </StackLayout>
+                    <StackLayout HorizontalOptions="Center" Orientation="Horizontal">
+                        <Label Text="Mail:" />
+                        <Label Text="{Binding Email}" />
+                    </StackLayout>
+                    <StackLayout HorizontalOptions="Center" Orientation="Horizontal">
+                        <Label Text="Telefonnummer:" />
+                        <Label Text="{Binding PhoneNumber}" />
+                    </StackLayout>
+                    <StackLayout HorizontalOptions="Center" Orientation="Horizontal">
+                        <Label Text="Sektion:" />
+                        <Label Text="{Binding Section}" />
+                    </StackLayout>
+                    <StackLayout HorizontalOptions="Center">
+                        <Button Text="Skriv in din intro kod" Clicked="AddCode_Clicked" IsVisible="{Binding IsVisible}" BackgroundColor="Green" />
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
+        </ContentPage.Content>
+    </ContentView>
+</ContentPage>

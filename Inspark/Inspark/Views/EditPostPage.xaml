@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Inspark.Views.EditPostPage"
+             xmlns:vm="clr-namespace:Inspark.Viewmodels;assembly=Inspark"
+             xmlns:conv="clr-namespace:Inspark.Services;assembly=Inspark">
+    <ContentPage.Content>
+        <ContentView>
+            <StackLayout Padding="15">
+                <StackLayout.Resources>
+                    <ResourceDictionary>
+                        <conv:ByteArrayToImageSourceConverter x:Key="bic"/>
+                    </ResourceDictionary>
+                </StackLayout.Resources>
+                <Label Text="Ändra titel:"/>
+                <Editor Text="{Binding EditTitle}" Keyboard="Text"/>
+                <Label Text="Ändra text:"/>
+                <Editor Text="{Binding EditText}" HeightRequest="100" Keyboard="Text"/>
+                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                    <Button Text="Lägg till bild" Command="{Binding AddPicCommand}" IsVisible="{Binding IsAddPicVisible}"/>
+                    <Image Source="{Binding EditPic, Converter={StaticResource bic}}" HeightRequest="75" WidthRequest="75"/>
+                    <Button Text="Ta bort bild" Command="{Binding RemovePicCommand}" IsVisible="{Binding IsRemovePicVisible}"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                    <Label Text="Pinna inlägg"/>
+                    <Switch IsToggled="{Binding IsPinned}"/>
+                </StackLayout>
+                <Label Text="{Binding Message}" TextColor="Red"/>
+                <Button Text="Posta inlägg" Command="{Binding PostCommand}" BackgroundColor="LightGreen"/>
+                <Button Text="Avbryt" Clicked="Abort_Clicked" BackgroundColor="PaleVioletRed"/>
+                <Button Text="Ta bort inlägg" Command="{Binding DeleteCommand}" BackgroundColor="PaleVioletRed"/>
+            </StackLayout>
+        </ContentView>
+    </ContentPage.Content>
+</ContentPage>

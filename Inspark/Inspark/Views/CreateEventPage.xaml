@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:Inspark.Viewmodels;assembly=Inspark"
+             xmlns:system="clr-namespace:System;assembly=netstandard"
+             xmlns:custom="clr-namespace:Inspark.CustomControls;assembly=Inspark" 
+             xmlns:validation="clr-namespace:Inspark.Services;assembly=Inspark"
+             x:Class="Inspark.Views.CreateEventPage">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Padding="40">
+                <StackLayout.BindingContext>
+                    <viewmodels:CreateEventViewModel/>
+                </StackLayout.BindingContext>
+                <StackLayout>
+                    <Entry Placeholder="Titel" Text="{Binding Title}">
+                        <Entry.Behaviors>
+                            <validation:EmptyFieldValidation/>
+                        </Entry.Behaviors>
+                    </Entry>
+                </StackLayout>
+
+                <StackLayout>
+                    <Entry Placeholder="Adress" Text="{Binding Location}">
+                        <Entry.Behaviors>
+                            <validation:EmptyFieldValidation/>
+                        </Entry.Behaviors>
+                    </Entry>
+                </StackLayout>
+                <StackLayout>
+                    <Label Text="{Binding Attending}"/>
+                </StackLayout>
+
+                <StackLayout>
+                    <Entry Placeholder="Beskrivning" Text="{Binding Description}">
+                        <Entry.Behaviors>
+                            <validation:EmptyFieldValidation/>
+                        </Entry.Behaviors>
+                    </Entry>
+                </StackLayout>
+
+                <StackLayout>
+                    <DatePicker Format="dd/MM/yyyy" Date="{Binding StartDate}" MinimumDate="{x:Static system:DateTime.Today}"/>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Label Text="Start Time" Grid.Row="0" Grid.Column="0"/>
+                        <custom:CustomTimePicker24H Time="{Binding StartTime}" Format="HH:mm"/>
+                    </Grid>
+                </StackLayout>
+                <Label Text="{Binding Message}"></Label>
+                <Button Text="Create Event" IsEnabled="{Binding IsButtonEnabled}" Command="{Binding CreateEventCommand}"></Button>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

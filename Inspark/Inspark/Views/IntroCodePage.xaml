@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:viewmodels="clr-namespace:Inspark.Viewmodels;assembly=Inspark" x:Class="Inspark.Views.IntroCodePage">
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout.BindingContext>
+                <viewmodels:IntroCodeViewModel />
+            </StackLayout.BindingContext>
+            <StackLayout>
+                <Label Text="Skriv in din intro kod." />
+                <Entry Text="{Binding IntroCode}" />
+            </StackLayout>
+            <StackLayout>
+                <Label Text="{Binding Message}" />
+                <Button Text="Skicka in" Command="{Binding IntroCodeCommand}" />
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

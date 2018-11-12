@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Inspark.Views.HomePage"
+             xmlns:Viewmodels="clr-namespace:Inspark.Viewmodels;assembly=Inspark"
+             xmlns:conv="clr-namespace:Inspark.Services;assembly=Inspark"
+             xmlns:ci="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <ContentView x:Name="HomePageContent" Grid.RowSpan="2">
+            <ContentView.BindingContext>
+                <Viewmodels:HomeViewModel/>
+            </ContentView.BindingContext>
+            <ContentView.Content>
+                <StackLayout Grid.RowSpan="2" Grid.Column="0">
+                    <StackLayout Grid.Row="0" Grid.Column="0" Padding="30, 5, 30, 5">
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                            <Label Text="Nyheter" FontSize="Large" HorizontalOptions="StartAndExpand"/>
+                            <Label Text="Visa alla" FontSize="Medium" HorizontalOptions="EndAndExpand">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="ViewAllNewsTapped"/>
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </StackLayout>
+                        <ListView x:Name="NewsList" 
+                                  ItemsSource="{Binding NewsPosts}" 
+                                  ItemTapped="NewsItemTapped" 
+                                  IsRefreshing="{Binding NewsIsRefreshing}" 
+                                  RefreshCommand="{Binding RefreshNewsCommand}" 
+                                  IsPullToRefreshEnabled="True"
+                                  SeparatorVisibility="Default"
+                                  SeparatorColor="Blue"
+                                  HasUnevenRows="True">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <StackLayout Padding="0,0,0,1">
+                                            <Grid RowSpacing="0" Padding="0" Margin="0">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="5"/>
+                                                    <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="5"/>
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="75"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="10"/>
+                                                </Grid.ColumnDefinitions>
+
+                                                <StackLayout Grid.Column="1" Grid.Row="1">
+                                                    <Label Text="{Binding Title}" TextColor= "DarkGray" FontSize="Large"/>
+                                                    <Label Text="{Binding Description}"  TextColor="DarkGray" FontSize="Small" />
+                                                </StackLayout>
+                                                <StackLayout Grid.Column="0" Grid.Row="1" VerticalOptions="Center" HorizontalOptions="Center">
+                                                    <StackLayout.Resources>
+                                                        <ResourceDictionary>
+                                                            <conv:ByteArrayToImageSourceConverter x:Key="bic"/>
+                                                        </ResourceDictionary>
+                                                    </StackLayout.Resources>
+                                                    <ci:CircleImage HorizontalOptions="Center" BorderColor="Gray" BorderThickness="2" Source="{Binding SenderPic, Converter={StaticResource bic}}" Aspect="AspectFill" HeightRequest="50" WidthRequest="50"/>
+                                                    <Label Text="{Binding Author}" FontSize="Micro" HorizontalOptions="Center"/>
+                                                </StackLayout>
+                                                <Image Source="pin.png" HeightRequest="10" WidthRequest="10" IsVisible="{Binding Pinned}" Grid.Column="2" Grid.Row="1"/>
+                                            </Grid>
+                                        </StackLayout>
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </StackLayout>
+                    <StackLayout Grid.Row="1" Grid.Column="0" Padding="30, 5, 30, 5">
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                            <Label Text="Grupp" FontSize="Large" HorizontalOptions="StartAndExpand"/>
+                            <Label Text="Visa alla" FontSize="Medium" HorizontalOptions="EndAndExpand">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="ViewAllGroupTapped"/>
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </StackLayout>
+                        <ListView x:Name="GroupList" 
+                                  ItemsSource="{Binding GroupPosts}" 
+                                  RowHeight="60"
+                                  ItemTapped="GroupItemTapped" 
+                                  IsRefreshing="{Binding GroupIsRefreshing}" 
+                                  RefreshCommand="{Binding RefreshGroupCommand}" 
+                                  IsPullToRefreshEnabled="True">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <StackLayout Padding="0,0,0,1">
+                                            <Grid RowSpacing="0" Padding="0" Margin="0">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="5"/>
+                                                    <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="5"/>
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="75"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="10"/>
+                                                </Grid.ColumnDefinitions>
+
+                                                <StackLayout Grid.Column="1" Grid.Row="1">
+                                                    <Label Text="{Binding Title}" TextColor= "DarkGray" FontSize="Large"/>
+                                                    <Label Text="{Binding Description}"  TextColor="DarkGray" FontSize="Small" />
+                                                </StackLayout>
+                                                <StackLayout Grid.Column="0" Grid.Row="1" VerticalOptions="Center" HorizontalOptions="Center">
+                                                    <StackLayout.Resources>
+                                                        <ResourceDictionary>
+                                                            <conv:ByteArrayToImageSourceConverter x:Key="bic"/>
+                                                        </ResourceDictionary>
+                                                    </StackLayout.Resources>
+                                                    <ci:CircleImage HorizontalOptions="Center" BorderColor="Gray" BorderThickness="2" Source="{Binding SenderPic, Converter={StaticResource bic}}" Aspect="AspectFill" HeightRequest="50" WidthRequest="50"/>
+                                                    <Label Text="{Binding Author}" FontSize="Micro" HorizontalOptions="Center"/>
+                                                </StackLayout>
+                                                <Image Source="pin.png" HeightRequest="10" WidthRequest="10" IsVisible="{Binding Pinned}" Grid.Column="2" Grid.Row="1"/>
+                                            </Grid>
+                                        </StackLayout>
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </StackLayout>
+                </StackLayout>
+            </ContentView.Content>
+        </ContentView>
+    </Grid>
+</ContentPage>

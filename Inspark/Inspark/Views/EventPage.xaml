@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Inspark.Views.EventPage">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Padding="20">
+                <Image Source="bowling.jpg" />
+
+                <StackLayout HorizontalOptions="Center">
+                    <Button Text="Karta"
+                    HeightRequest="40"
+                    WidthRequest="100"
+                    VerticalOptions="CenterAndExpand" />
+                </StackLayout>
+
+                <StackLayout Padding="10, 0, 10, 0" Orientation="Horizontal">
+                    <Label Text="Titel:"
+                    FontSize="Medium"/>
+                    <Label Text="{Binding Title, Mode=TwoWay}" VerticalOptions="CenterAndExpand"/>
+                </StackLayout>
+
+                <StackLayout Padding="10, 0, 10, 0" Orientation="Horizontal">
+                    <Label Text="Datum:" 
+                       FontSize="Medium"/>
+                    <Label Text="{Binding Date, StringFormat='{}{0:yyyy/MM/dd}'}"   VerticalOptions="CenterAndExpand"/>
+                </StackLayout>
+
+                <StackLayout Padding="10, 0, 10, 0" Orientation="Horizontal">
+                    <Label Text="Tid:" 
+                       FontSize="Medium"/>
+                    <Label Text="{Binding Date, StringFormat='{}{0:HH:mm}'}" VerticalOptions="CenterAndExpand"/>
+                </StackLayout>
+
+                <StackLayout Padding="10" Orientation="Vertical">
+                    <Label Text="Om evenemanget:" 
+                       FontSize="Medium"
+                   VerticalOptions="CenterAndExpand"/>
+                    <Label Text="{Binding Description}"/>
+                </StackLayout>
+                <StackLayout>
+                    <Label Text="{Binding Attending}"/>
+                </StackLayout>
+
+                <StackLayout Padding="20" Orientation="Horizontal">
+                    <Button Text="Jag kommer!" BackgroundColor="LightGreen" Command="{Binding IsAttending}" IsVisible="{Binding IsVisible}"/>
+                    <Button Text="Jag kommer INTE!" BackgroundColor="LightCoral" Command="{Binding IsNotAttending}" IsVisible="{Binding IsVisible}"/>
+                </StackLayout>
+
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

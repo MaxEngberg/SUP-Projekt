@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:Inspark.Viewmodels;assembly=Inspark"
+             x:Class="Inspark.Views.DeleteGroupPage">
+    <ContentPage.Content>
+        <StackLayout Padding="40">
+            <StackLayout.BindingContext>
+                <viewmodels:DeleteGroupViewModel/>
+            </StackLayout.BindingContext>
+            <StackLayout>
+                <Label Margin="10,20,0,0" Text="Välj vilken grupp"/>
+                <Picker Margin="10,0,0,0" ItemsSource="{Binding Groups}" SelectedItem="{Binding SelectedGroup}" ItemDisplayBinding="{Binding Name}"/>
+            </StackLayout>
+            <StackLayout>
+                <Label Text="{Binding Message}"/>
+                <Button Text="Ta bort Grupp" Command="{Binding DeleteGroup}"/>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

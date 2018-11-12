@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Inspark.Views.InfoPage">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Padding="20">
+                <StackLayout>
+                    <Label Text="Hej och välkommen till Örebro Universitet och Inspark!" FontSize="Large"/>
+                </StackLayout>
+
+                <StackLayout>
+                    <Label Text="Här under följer viktig kontaktinformation till universitetets alla delar om ni har något ni undrar över." />
+                </StackLayout>
+
+                <StackLayout Padding="10">
+                    <Label Text="Växel" FontSize="Medium"/>
+                    <Label Text="Telefon: 019-30 30 00"/>
+                    <Label Text="Öppettider: måndag-torsdag 8.00-16.45, fre 8.00-16.00"/>
+                </StackLayout>
+
+                <StackLayout Padding="10">
+                    <Label Text="Studentcentrum" FontSize="Medium"/>
+                    <Label Text="Frågor om ORU-konto, universitetskortet, trådlöst nätverk för studenter och inlämning av hemtentamen."/>
+                    <Label Text="E-post: studentcentrum@oru.se"/>
+                    <Label Text="Telefon: 019-30 37 00"/>
+                    <Label Text="Öppettider: måndag-fredag 09.00-15.00."/>
+                </StackLayout>
+
+                <StackLayout Padding="10">
+                    <Label Text="Studentforum" FontSize="Medium"/>
+                    <Label Text="E-post: studentforum@oru.se"/>
+                </StackLayout>
+
+                <StackLayout Padding="10">
+                    <Label Text="Blackboard" FontSize="Medium"/>
+                    <Label Text="E-post: iktsupport@oru.se"/>
+                </StackLayout>
+
+                <StackLayout Padding="10">
+                    <Label Text="KronoX" FontSize="Medium"/>
+                    <Label Text="Telefon: 019-30 32 16"/>
+                    <Label Text="E-post: iktsupport@oru.se"/>
+                </StackLayout>
+
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

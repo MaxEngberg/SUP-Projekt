@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Inspark.Views.AllChatsPage"
+             xmlns:ci="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
+             xmlns:vm="clr-namespace:Inspark.Viewmodels;assembly=Inspark"
+             xmlns:conv="clr-namespace:Inspark.Services;assembly=Inspark">
+    <ContentPage.Content>
+        <ScrollView>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <StackLayout Orientation="Vertical" 
+                         Spacing="0" 
+                         Margin="10, 20, 10, 0" 
+                         Grid.Row="0"
+                         x:Name="SearchArea">
+                    <StackLayout.Resources>
+                        <ResourceDictionary>
+                            <conv:ByteArrayToImageSourceConverter x:Key="bic"/>
+                        </ResourceDictionary>
+                    </StackLayout.Resources>
+                    <SearchBar x:Name="UserSearchBar"
+                                   Text="{Binding Keyword}"
+                                   SearchCommand="{Binding SearchCommand}"
+                                   Placeholder="Bokstav + enter för att söka"
+                                   HeightRequest="40"/>
+                    <ListView x:Name="UserListView" 
+                                  ItemsSource="{Binding Suggestions}" 
+                                  IsVisible="{Binding IsSearchListVisible}"
+                                  ItemTapped="User_ItemTapped">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout>
+                                        <Label Text="{Binding FirstName}"/>
+                                        <Label Text="{Binding LastName}"/>
+                                        <ci:CircleImage Source="{Binding ProfilePicture, Converter={StaticResource bic}}"/>
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>
+
+                <StackLayout Grid.Row="1" x:Name="ChatListArea">
+                    <StackLayout.Resources>
+                        <ResourceDictionary>
+                            <conv:ByteArrayToImageSourceConverter x:Key="bic"/>
+                        </ResourceDictionary>
+                    </StackLayout.Resources>
+                    <ListView x:Name="ChatListView" 
+                          ItemsSource="{Binding ChatDisplayModels}"
+                          ItemTapped="Chat_ItemTapped"
+                          HasUnevenRows="True">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout Padding="4">
+                                        <Grid RowSpacing="0" Padding="0" Margin="0">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="5"/>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="5"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="75"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="20"/>
+                                            </Grid.ColumnDefinitions>
+                                            <StackLayout Grid.Row="1" Grid.Column="1" Padding="2">
+                                                <Label Text="{Binding DisplayName}"/>
+                                                <Label Text="{Binding LatestMessage}" Grid.Column="1" Grid.Row="1"/>
+                                            </StackLayout>
+                                            <ci:CircleImage Source="{Binding ChatPic, Converter={StaticResource bic}}" 
+                                                            BorderColor="Blue" 
+                                                            BorderThickness="2" 
+                                                            Grid.Row="1"  
+                                                            Grid.Column="0" 
+                                                            HeightRequest="35" 
+                                                            WidthRequest="35" 
+                                                            Aspect="AspectFill"
+                                                            HorizontalOptions="Center"
+                                                            VerticalOptions="Center"/>
+                                            <Image Source="notification.png" IsVisible="{Binding IsLatestMessageNotViewed}" Grid.Column="2" Grid.Row="1" HeightRequest="10" WidthRequest="10"/>
+                                        </Grid>
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>
+                <StackLayout Grid.Row="2" x:Name="GroupChatArea">
+                    <StackLayout.Resources>
+                        <ResourceDictionary>
+                            <conv:ByteArrayToImageSourceConverter x:Key="bic"/>
+                        </ResourceDictionary>
+                    </StackLayout.Resources>
+                    <ListView x:Name="GroupChatListView" 
+                          ItemsSource="{Binding GroupChatDisplayModels}"
+                          ItemTapped="GroupChat_ItemTapped"
+                          HasUnevenRows="True">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout Padding="0">
+                                        <Grid RowSpacing="0" Padding="0" Margin="0">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="5"/>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="5"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="40"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="20"/>
+                                            </Grid.ColumnDefinitions>
+                                            <StackLayout Grid.Row="1" Grid.Column="1" Padding="2">
+                                                <Label Text="{Binding DisplayName}"/>
+                                                <Label Text="{Binding LatestMessage}" Grid.Column="1" Grid.Row="1"/>
+                                            </StackLayout>
+                                            <ci:CircleImage Source="{Binding ChatPic, Converter={StaticResource bic}}" 
+                                                            BorderColor="Blue" 
+                                                            BorderThickness="2" 
+                                                            Grid.Row="1"  
+                                                            Grid.Column="0" 
+                                                            HeightRequest="35" 
+                                                            WidthRequest="35" 
+                                                            Aspect="AspectFill"
+                                                            HorizontalOptions="Center"
+                                                            VerticalOptions="Center"/>
+                                            <Image Source="notification.png" IsVisible="{Binding IsLatestMessageNotViewed}" Grid.Column="2" Grid.Row="1" HeightRequest="10" WidthRequest="10"/>
+                                        </Grid>
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>
+            </Grid>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

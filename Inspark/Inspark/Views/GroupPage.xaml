@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Inspark.Views.GroupPage"
+             xmlns:vm="clr-namespace:Inspark.Viewmodels;assembly=Inspark">
+    <ContentPage.BindingContext>
+        <vm:GroupViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <Grid ColumnSpacing="0" RowSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="56"/>
+                <RowDefinition Height="1"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="1"/>
+            </Grid.RowDefinitions>
+
+            <!-- Creating three columns in the first row. -->
+            <Grid Grid.Row="0" ColumnSpacing="0" RowSpacing="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Specifies the value for each column in the first row. -->
+                <StackLayout Grid.Column="0" VerticalOptions="Center" Spacing="0">
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="Home_Tapped"/>
+                    </StackLayout.GestureRecognizers>
+                    <Image Source="home.png" HeightRequest="20" WidthRequest="20"/>
+                </StackLayout>
+
+                <StackLayout Grid.Column="1" VerticalOptions="Center" Spacing="0">
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="Members_Tapped"/>
+                    </StackLayout.GestureRecognizers>
+                    <Image Source="group.png" HeightRequest="20" WidthRequest="20"/>
+                </StackLayout>
+
+                <StackLayout Grid.Column="2" VerticalOptions="Center" Spacing="0">
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="Events_Tapped"/>
+                    </StackLayout.GestureRecognizers>
+                    <Image Source="event.png" HeightRequest="20" WidthRequest="20"/>
+                </StackLayout>
+
+                <StackLayout Grid.Column="3" VerticalOptions="Center" Spacing="0">
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="Messages_Tapped"/>
+                    </StackLayout.GestureRecognizers>
+                    <Image Source="chat.png" HeightRequest="20" WidthRequest="20"/>
+                </StackLayout>
+
+                <StackLayout Grid.Column="4" VerticalOptions="Center" Spacing="0" IsVisible="{Binding IsVisible}">
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="Fadder_Tapped"/>
+                    </StackLayout.GestureRecognizers>
+                    <Image Source="admin.png" HeightRequest="20" WidthRequest="20"/>
+                </StackLayout>
+            </Grid>
+
+            <!-- Specifies what the other rows will do/contain. Row 1 and 3 is both a "border row". 
+                    Row 2 is a ContentView where all the content from any view will be put for display. -->
+            <BoxView Grid.Row="1" BackgroundColor="LightGray"/>
+            <ContentView Grid.Row="2" x:Name="GroupView"/>
+            <BoxView Grid.Row="3" BackgroundColor="LightGray"/>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

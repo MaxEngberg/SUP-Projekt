@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="Inspark.FrontPage"
+             Title="Inspark">
+    <ContentPage.Content>
+        <StackLayout Spacing="20" Padding="20"
+                 VerticalOptions="Center"
+                 HorizontalOptions="Center">
+            <Label Text="Inspark"
+               FontSize="60"
+               HorizontalOptions="Center"/>
+            <Button Text="Registrera" FontSize="Large" HeightRequest="80" WidthRequest="200" TextColor="White" BackgroundColor="LightGreen" Clicked="Register_Clicked"/>
+            <Button Text="Logga in" FontSize="Large" HeightRequest="80" TextColor="White" BackgroundColor="Blue" Clicked="Login_Clicked"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:Inspark.Viewmodels;assembly=Inspark"
+             x:Class="Inspark.Views.CompetitionPage">
+    <ContentView x:Name="InsparkCompetition">
+        <ContentPage.Content>
+            <StackLayout Padding="20">
+                <StackLayout.BindingContext>
+                    <viewmodels:CompetitionViewModel/>
+                </StackLayout.BindingContext>
+                <StackLayout IsVisible="{Binding IsAdmin}">
+                    <Button Text="Lägg in resultat till grupp" BackgroundColor="LightBlue" Clicked="AddScore_Clicked"/>
+                    <Button Text="Ta bort resultat från grupp" BackgroundColor="LightCoral" Clicked="DeleteScore_Clicked"/>
+                </StackLayout>
+                <StackLayout>
+                    <Label Text="Här är följande ställning i tävlingen:" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Center"/>
+                </StackLayout>
+                <StackLayout>
+                    <ListView ItemsSource="{Binding Competition}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="200"/>
+                                            <ColumnDefinition Width="100"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Label Grid.Column="0" Text="{Binding Name}" VerticalOptions="Center" HorizontalOptions="Center"/>
+                                        <Label Grid.Column="1" Text="{Binding TotalScore}" VerticalOptions="Center" HorizontalOptions="Center"/>
+                                    </Grid>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>
+            </StackLayout>
+        </ContentPage.Content>
+    </ContentView>
+</ContentPage>

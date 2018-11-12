@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Inspark.Views.ChatPage"
+             xmlns:vm="clr-namespace:Inspark.Viewmodels;assembly=Inspark"
+             xmlns:template="clr-namespace:Inspark.CustomCells;assembly=Inspark">
+    <ContentPage.Content>
+        <Grid RowSpacing="0" ColumnSpacing="0" x:Name="MessageArea">
+            <Grid.Resources>
+                <ResourceDictionary>
+                    <template:MyDataTemplateSelector x:Key="MessageTemplateSelector"/>
+                </ResourceDictionary>
+            </Grid.Resources>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <!--Chat name in Row 0 -->
+            <Label Text="{Binding ChatName}" HorizontalOptions="Center" Grid.Row="0"/>
+
+            <!--Messages in Row 1 -->
+            <ListView 
+			x:Name="MessagesListView" 
+			ItemTemplate="{StaticResource MessageTemplateSelector}" 
+			ItemsSource="{Binding Messages}"
+            Grid.Row="1"
+			HasUnevenRows="True" 
+			ItemSelected="MyListView_OnItemSelected" 
+			ItemTapped="MyListView_OnItemTapped" 
+			SeparatorVisibility="None" />
+
+            <!-- Entry and Send button in Row 2 -->
+            <StackLayout Orientation="Horizontal" Grid.Row="2" Padding="10" BackgroundColor="#EFEFEF" x:Name="TextArea">
+                <Entry 
+			    HorizontalOptions="FillAndExpand" 
+				HeightRequest="25" 
+				Placeholder="Meddelande" 
+				Text="{Binding OutgoingText}"/>
+                <Button 
+				Text="Skicka" 
+				Command="{Binding SendCommand}"/>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
